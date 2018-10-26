@@ -6,7 +6,6 @@ package edu.depaul.se359.agilegame;
 /**
  * Hello world!
  *
- *
  */
 public class App 
 {
