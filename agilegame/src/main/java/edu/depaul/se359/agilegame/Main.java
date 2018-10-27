@@ -39,7 +39,7 @@ public class Main extends Application {
     
     Player playerOne, playerTwo;
     Button diceRoll;
-    Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel;
+    Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel, playerOneAnswerLabel, playerTwoAnswerLabel;
     String[] team1questions;
     String[] team2questions;
     //temporary buttons and variables
@@ -53,6 +53,9 @@ public class Main extends Application {
 
     int playerOneScore = 0;
     int playerTwoScore = 0;
+    String a = "A";
+    String b = "B";
+    String c = "C";
 
 
     @Override
@@ -80,12 +83,12 @@ public class Main extends Application {
         diceLabel.setTranslateY(100);
         root.getChildren().add(diceLabel);
 
-        playerOneScoreLabel = new Label("Player One: ");
+        playerOneScoreLabel = new Label("Player One: " + playerOneScore);
         playerOneScoreLabel.setTranslateX(10);
         playerOneScoreLabel.setTranslateY(415);
         root.getChildren().add(playerOneScoreLabel);
 
-        playerTwoScoreLabel = new Label("Player Two: ");
+        playerTwoScoreLabel = new Label("Player Two: " + playerTwoScore);
         playerTwoScoreLabel.setTranslateX(710);
         playerTwoScoreLabel.setTranslateY(415);
         root.getChildren().add(playerTwoScoreLabel);
@@ -219,6 +222,19 @@ public class Main extends Application {
         team2AnswerCButton.setTranslateY(285);
         root.getChildren().add(team2AnswerCButton);
 
+        // adds player one answer label
+        playerOneAnswerLabel = new Label("Answer: " );
+        playerOneAnswerLabel.setTranslateX(930);
+        playerOneAnswerLabel.setTranslateY(185);
+        root.getChildren().add(playerOneAnswerLabel);
+
+        // adds player two answer label
+        playerTwoAnswerLabel = new Label("Answer: " );
+        playerTwoAnswerLabel.setTranslateX(930);
+        playerTwoAnswerLabel.setTranslateY(295);
+        root.getChildren().add(playerTwoAnswerLabel);
+
+
         // places the players images
         placePlayerOne();
         placePlayerTwo();
@@ -243,6 +259,7 @@ public class Main extends Application {
         tmpT1Button.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent e){
+                playerOneAnswerLabel.setText("Answer: ");
                 displayQuestion(team1questions, t1count, "player1");
                 System.out.println("t1count = " + t1count);
                 System.out.println("t2count = " + t2count);
@@ -257,6 +274,7 @@ public class Main extends Application {
         tmpT2Button.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent e){
+                playerTwoAnswerLabel.setText("Answer: ");
                 displayQuestion(team2questions, t2count, "player2");
                 System.out.println("t2count = " + t2count);
                 System.out.println("t1count = " + t1count);
@@ -278,8 +296,14 @@ public class Main extends Application {
                 if(t1count == 1 && isQuestionBeingDisplayed() == true){
                     playerOneScore++;
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     dismissQuestion();
                 }
+                else{
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    dismissQuestion();
+                }
+
             }
         });
 
@@ -291,6 +315,11 @@ public class Main extends Application {
                         (t1count == 4 && isQuestionBeingDisplayed() == true)){
                     playerOneScore++;
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    dismissQuestion();
+                }
+                else{
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     dismissQuestion();
                 }
 
@@ -303,10 +332,16 @@ public class Main extends Application {
                 if(t1count == 5 && isQuestionBeingDisplayed() == true){
                     playerOneScore++;
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    dismissQuestion();
+                }
+                else{
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     dismissQuestion();
                 }
             }
         });
+
     }
 
     public void team2AnswerButtons(){
@@ -317,6 +352,11 @@ public class Main extends Application {
                         (t2count == 3 && isQuestionBeingDisplayed())){
                     playerTwoScore++;
                     playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    dismissQuestion();
+                }
+                else{
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     dismissQuestion();
                 }
             }
@@ -328,6 +368,11 @@ public class Main extends Application {
                 if(t2count == 1 && isQuestionBeingDisplayed()){
                     playerTwoScore++;
                     playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    dismissQuestion();
+                }
+                else{
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     dismissQuestion();
                 }
             }
@@ -340,10 +385,33 @@ public class Main extends Application {
                         (t2count == 5 && isQuestionBeingDisplayed())){
                     playerTwoScore++;
                     playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    dismissQuestion();
+                }
+                else{
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     dismissQuestion();
                 }
             }
         });
+    }
+
+    public String getCorrectAnswer(String player){
+        if((t1count == 1 && player == "player1") ||
+                (t2count == 2 && player == "player2") || (t2count == 3 && player == "player2")){
+            return a;
+        }
+        else if((t1count == 2 && player == "player1") || (t1count == 3 && player == "player1") || (t1count == 4 && player == "player1") ||
+                    (t2count == 1 && player == "player2")){
+            return b;
+        }
+        else if((t1count == 5 && player == "player1") ||
+                    (t2count == 4 && player == "player2") || (t2count == 5 && player == "player2")){
+            return c;
+        }
+        else {
+            return "";
+        }
     }
 
     public void displayQuestion(String[] questions, int count, String player){
@@ -376,6 +444,7 @@ public class Main extends Application {
 //            questionDisplay = false;
 //        }
     }
+
 
     public boolean isQuestionBeingDisplayed(){
 
