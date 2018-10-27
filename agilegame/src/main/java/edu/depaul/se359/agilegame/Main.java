@@ -39,17 +39,23 @@ public class Main extends Application {
     
     Player playerOne, playerTwo;
     Button diceRoll;
-    Label diceLabel, playerOneScore, playerTwoScore;
+    Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel, playerOneAnswerLabel, playerTwoAnswerLabel;
     String[] team1questions;
     String[] team2questions;
     //temporary buttons and variables
-    Button tmpT1Button;
-    Button tmpT2Button;
+    Button tmpT1Button, team1AnswerAButton, team1AnswerBButton, team1AnswerCButton;
+    Button tmpT2Button, team2AnswerAButton, team2AnswerBButton, team2AnswerCButton;
     Boolean questionDisplay = false;
     int t1count = 0;
     int t2count = 0;
     //display question stack pane
     StackPane stack;
+
+    int playerOneScore = 0;
+    int playerTwoScore = 0;
+    String a = "A";
+    String b = "B";
+    String c = "C";
 
 
     @Override
@@ -65,32 +71,103 @@ public class Main extends Application {
         drawMap();
         gameBoard.displayMap();
 
-        // adds a button to dice roll player 1
+        // adds a button to dice roll
         diceRoll = new Button("Roll");
         diceRoll.setTranslateX(850);
-        diceRoll.setTranslateY(100);
+        diceRoll.setTranslateY(50);
         root.getChildren().add(diceRoll);
 
-        // adds a text box for dice player 1
+        // adds a text box for dice
         diceLabel = new Label("Roll: ");
         diceLabel.setTranslateX(850);
-        diceLabel.setTranslateY(150);
+        diceLabel.setTranslateY(100);
         root.getChildren().add(diceLabel);
 
-        playerOneScore = new Label("Player One: ");
-        playerOneScore.setTranslateX(10);
-        playerOneScore.setTranslateY(415);
-        root.getChildren().add(playerOneScore);
+        playerOneScoreLabel = new Label("Player One: " + playerOneScore);
+        playerOneScoreLabel.setTranslateX(10);
+        playerOneScoreLabel.setTranslateY(415);
+        root.getChildren().add(playerOneScoreLabel);
 
-        playerTwoScore = new Label("Player Two: ");
-        playerTwoScore.setTranslateX(710);
-        playerTwoScore.setTranslateY(415);
-        root.getChildren().add(playerTwoScore);
+        playerTwoScoreLabel = new Label("Player Two: " + playerTwoScore);
+        playerTwoScoreLabel.setTranslateX(710);
+        playerTwoScoreLabel.setTranslateY(415);
+        root.getChildren().add(playerTwoScoreLabel);
 
 
         // initialize arrays with questions
-        team1questions = new String[] {"p1", "p2", "p3", "p4", "p5"};
-        team2questions = new String[] { "2p1", "2p2", "2p3", "2p4", "2p5"};
+        team1questions = new String[] {"Which ceremony do we practice first day of iteration?\n" +
+                                        "\nA) Spring planning\n" +
+                                        "B) Retrospective\n" +
+                                        "C) Daily scum\n",
+
+                                        "Knock knock.\n" +
+                                                "Who’s there?\n" +
+                                                "Processes and tools.\n" +
+                                                "Processes and tools who?\n" +
+                                                "\nA) Scrum master\n" +
+                                                "B) Agile methodology\n" +
+                                                "C) Developer\n",
+
+                                        "Time to show the team what you did in 2 weeks,\n" +
+                                                "if you did anything?\n" +
+                                                "\nA) Backlog grooming\n" +
+                                                "B) Sprint demo\n" +
+                                                "C) Show case\n",
+
+                                        "Developer: Uggh I need coffee for this meeting\n" +
+                                                "Scrum Master: Dont complain, its only 15 minutes\n" +
+                                                "\nWhich ceremony are they going to practice?\n" +
+                                                "\nA) Coffee run to Dunkin' Donuts(Scrum runs on Dunkin')\n" +
+                                                "B) Daily scum\n" +
+                                                "C) Backlog grooming\n",
+
+                                        "PO: I have so much work in my hands for developers\n" +
+                                                "Developer: Well explain to me first what I have to do.\n" +
+                                                "\nWhich ceremony will they have to practice\n" +
+                                                "to get this work done?\n" +
+                                                "\nA) Spring planning\n" +
+                                                "B) Spring demo\n" +
+                                                "C) Backlog grooming\n"};
+
+        team2questions = new String[] {"PO: Estimates in 3, 2, 1...\n" +
+                                            "Developer 1: 5\n" +
+                                            "Developer 2: 3\n" +
+                                            "Developer 3: 5\n" +
+                                            "\nIn which ceremony does estimation happen?\n" +
+                                            "\nA) Spring planning\n" +
+                                            "B) Backlog grooming\n" +
+                                            "C) Daily scum\n",
+
+                                        "PO: Now that we've committed to these stories,\n" +
+                                                "is your choice to pick\n" +
+                                                "Developer 1: I want story ...\n" +
+                                                "Developer 2: Ok ill take story number ...\n" +
+                                                "\nIn which ceremony does stories get assigned?\n" +
+                                                "\nA) Spring planning\n" +
+                                                "B) Sprint demo\n" +
+                                                "C) Retrospective\n",
+
+                                        "What have you completed since the last meeting?\n" +
+                                                "What do you plan to complete by the next meeting?\n" +
+                                                "What is getting in your way?\n" +
+                                                "\nThese questions are part of?\n" +
+                                                "\nA) Daily Scrum\n" +
+                                                "B) Sharing you life story\n" +
+                                                "C) Meeting with manager\n",
+
+                                        "Squads sharing to other squads\n" +
+                                                "What the squad completed since the last meeting?\n" +
+                                                "What the squad plans to complete by the next meeting?\n" +
+                                                "What is getting in the squads way?\n" +
+                                            "\nWhich ceremony are they going to practice?\n" +
+                                            "\nA) Coffee run to Starbucks\n" +
+                                            "B) Bigger daily scum\n" +
+                                            "C) Scrum of scrums\n",
+
+                                        "What is the typical length of sprint in a project?\n" +
+                                            "\nA) 6 months\n" +
+                                            "B) From start to finish of project\n" +
+                                            "C) 2 weeks\n"};
 
         // temporary testing for printing questions to console
         for(String x : team1questions){
@@ -100,15 +177,63 @@ public class Main extends Application {
             System.out.println("Team 2 Question: " + y);
         }
 
-        // adds two temporary buttons to display questions for player 1 and player 2
+        // adds temporary button to display questions for player 1
         tmpT1Button = new Button("Team 1 Button");
-        tmpT1Button.setTranslateX(850);
-        tmpT1Button.setTranslateY(200);
+        tmpT1Button.setTranslateX(810);
+        tmpT1Button.setTranslateY(140);
         root.getChildren().add(tmpT1Button);
+
+        // three buttons for player 1 to answer A, B or C
+        team1AnswerAButton = new Button("A");
+        team1AnswerAButton.setTranslateX(810);
+        team1AnswerAButton.setTranslateY(175);
+        root.getChildren().add(team1AnswerAButton);
+
+        team1AnswerBButton = new Button("B");
+        team1AnswerBButton.setTranslateX(850);
+        team1AnswerBButton.setTranslateY(175);
+        root.getChildren().add(team1AnswerBButton);
+
+        team1AnswerCButton = new Button("C");
+        team1AnswerCButton.setTranslateX(890);
+        team1AnswerCButton.setTranslateY(175);
+        root.getChildren().add(team1AnswerCButton);
+
+
+        // adds temporary button to display questions for player 2
         tmpT2Button = new Button("Team 2 Button");
-        tmpT2Button.setTranslateX(850);
+        tmpT2Button.setTranslateX(810);
         tmpT2Button.setTranslateY(250);
         root.getChildren().add(tmpT2Button);
+
+        // three buttons for player 2 to answer A, B or C
+        team2AnswerAButton = new Button("A");
+        team2AnswerAButton.setTranslateX(810);
+        team2AnswerAButton.setTranslateY(285);
+        root.getChildren().add(team2AnswerAButton);
+
+        team2AnswerBButton = new Button("B");
+        team2AnswerBButton.setTranslateX(850);
+        team2AnswerBButton.setTranslateY(285);
+        root.getChildren().add(team2AnswerBButton);
+
+        team2AnswerCButton = new Button("C");
+        team2AnswerCButton.setTranslateX(890);
+        team2AnswerCButton.setTranslateY(285);
+        root.getChildren().add(team2AnswerCButton);
+
+        // adds player one answer label
+        playerOneAnswerLabel = new Label("Answer: " );
+        playerOneAnswerLabel.setTranslateX(930);
+        playerOneAnswerLabel.setTranslateY(185);
+        root.getChildren().add(playerOneAnswerLabel);
+
+        // adds player two answer label
+        playerTwoAnswerLabel = new Label("Answer: " );
+        playerTwoAnswerLabel.setTranslateX(930);
+        playerTwoAnswerLabel.setTranslateY(295);
+        root.getChildren().add(playerTwoAnswerLabel);
+
 
         // places the players images
         placePlayerOne();
@@ -133,19 +258,163 @@ public class Main extends Application {
         //handler for t1button
         tmpT1Button.setOnAction(new EventHandler<ActionEvent>(){
             @Override
-            public void handle(ActionEvent e){displayQuestion(team1questions, t1count); }
+            public void handle(ActionEvent e){
+                playerOneAnswerLabel.setText("Answer: ");
+                displayQuestion(team1questions, t1count, "player1");
+                System.out.println("t1count = " + t1count);
+                System.out.println("t2count = " + t2count);
+                System.out.println(isQuestionBeingDisplayed());
+
+            }
         });
+
+        team1AnswerButtons();
 
         //handler for t2button
         tmpT2Button.setOnAction(new EventHandler<ActionEvent>(){
             @Override
-            public void handle(ActionEvent e){ displayQuestion(team2questions, t2count); }
+            public void handle(ActionEvent e){
+                playerTwoAnswerLabel.setText("Answer: ");
+                displayQuestion(team2questions, t2count, "player2");
+                System.out.println("t2count = " + t2count);
+                System.out.println("t1count = " + t1count);
+                System.out.println(isQuestionBeingDisplayed());
+            }
         });
+
+        team2AnswerButtons();
 
 
     }
 
-    public void displayQuestion(String[] questions, int count){
+
+    public void team1AnswerButtons(){
+
+        team1AnswerAButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(t1count == 1 && isQuestionBeingDisplayed() == true){
+                    playerOneScore++;
+                    playerOneScoreLabel.setText("Player One: " + playerOneScore);
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    dismissQuestion();
+                }
+                else{
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    dismissQuestion();
+                }
+
+            }
+        });
+
+        team1AnswerBButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if((t1count == 2 && isQuestionBeingDisplayed() == true) ||
+                        (t1count == 3 && isQuestionBeingDisplayed() == true) ||
+                        (t1count == 4 && isQuestionBeingDisplayed() == true)){
+                    playerOneScore++;
+                    playerOneScoreLabel.setText("Player One: " + playerOneScore);
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    dismissQuestion();
+                }
+                else{
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    dismissQuestion();
+                }
+
+            }
+        });
+
+        team1AnswerCButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(t1count == 5 && isQuestionBeingDisplayed() == true){
+                    playerOneScore++;
+                    playerOneScoreLabel.setText("Player One: " + playerOneScore);
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    dismissQuestion();
+                }
+                else{
+                    playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    dismissQuestion();
+                }
+            }
+        });
+
+    }
+
+    public void team2AnswerButtons(){
+        team2AnswerAButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if((t2count == 2 && isQuestionBeingDisplayed()) ||
+                        (t2count == 3 && isQuestionBeingDisplayed())){
+                    playerTwoScore++;
+                    playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    dismissQuestion();
+                }
+                else{
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    dismissQuestion();
+                }
+            }
+        });
+
+        team2AnswerBButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(t2count == 1 && isQuestionBeingDisplayed()){
+                    playerTwoScore++;
+                    playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    dismissQuestion();
+                }
+                else{
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    dismissQuestion();
+                }
+            }
+        });
+
+        team2AnswerCButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if((t2count == 4 && isQuestionBeingDisplayed()) ||
+                        (t2count == 5 && isQuestionBeingDisplayed())){
+                    playerTwoScore++;
+                    playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    dismissQuestion();
+                }
+                else{
+                    playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    dismissQuestion();
+                }
+            }
+        });
+    }
+
+    public String getCorrectAnswer(String player){
+        if((t1count == 1 && player == "player1") ||
+                (t2count == 2 && player == "player2") || (t2count == 3 && player == "player2")){
+            return a;
+        }
+        else if((t1count == 2 && player == "player1") || (t1count == 3 && player == "player1") || (t1count == 4 && player == "player1") ||
+                    (t2count == 1 && player == "player2")){
+            return b;
+        }
+        else if((t1count == 5 && player == "player1") ||
+                    (t2count == 4 && player == "player2") || (t2count == 5 && player == "player2")){
+            return c;
+        }
+        else {
+            return "";
+        }
+    }
+
+    public void displayQuestion(String[] questions, int count, String player){
         if(questionDisplay == false){
             Rectangle rect = new Rectangle(xDimension, yDimension, 8*scale, 4*scale); //messed with scale of rect a bit
             rect.setStroke(Color.BLACK); //black outline
@@ -157,10 +426,10 @@ public class Main extends Application {
             else {
                 question = questions[count];
             }
-            if(t1count == count){
+            if(t1count == count && player == "player1"){
                 t1count++;
             }
-            else if(t2count == count){
+            else if(t2count == count && player == "player2"){
                 t2count++;
             }
             Text text = new Text(10, 50, question);
@@ -170,10 +439,21 @@ public class Main extends Application {
             root.getChildren().add(stack);
             questionDisplay = true;
         }
-        else{
-            root.getChildren().remove(stack);
-            questionDisplay = false;
-        }
+//        else{
+//            root.getChildren().remove(stack);
+//            questionDisplay = false;
+//        }
+    }
+
+
+    public boolean isQuestionBeingDisplayed(){
+
+        return questionDisplay;
+    }
+
+    public void dismissQuestion(){
+        root.getChildren().remove(stack);
+        questionDisplay = false;
     }
 
     public int rollDice(){
@@ -234,7 +514,7 @@ public class Main extends Application {
         diceImage = new Image("/img/" + rollNumber + ".png", diceScale, diceScale, true, true);
         diceImageView = new ImageView(diceImage);
         diceImageView.setX(900);
-        diceImageView.setY(100);
+        diceImageView.setY(50);
 
     }
 
