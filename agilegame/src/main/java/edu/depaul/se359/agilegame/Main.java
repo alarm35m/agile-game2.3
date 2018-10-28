@@ -40,7 +40,7 @@ public class Main extends Application {
     Player playerOne, playerTwo;
     int rollValue;
     Button diceRoll;
-    Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel, playerOneAnswerLabel, playerTwoAnswerLabel;
+    Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel, playerOneAnswerLabel, playerTwoAnswerLabel, playerOneLabelResponse, playerTwoLabelResponse;
     String[] team1questions;
     String[] team2questions;
     //temporary buttons and variables
@@ -229,11 +229,23 @@ public class Main extends Application {
         playerOneAnswerLabel.setTranslateY(185);
         root.getChildren().add(playerOneAnswerLabel);
 
+        // adds player one correct or wrong label
+        playerOneLabelResponse = new Label("You are: " );
+        playerOneLabelResponse.setTranslateX(810);
+        playerOneLabelResponse.setTranslateY(215);
+        root.getChildren().add(playerOneLabelResponse);
+
         // adds player two answer label
         playerTwoAnswerLabel = new Label("Answer: " );
         playerTwoAnswerLabel.setTranslateX(930);
         playerTwoAnswerLabel.setTranslateY(295);
         root.getChildren().add(playerTwoAnswerLabel);
+
+        // adds player two correct or wrong label
+        playerTwoLabelResponse = new Label("You are: " );
+        playerTwoLabelResponse.setTranslateX(810);
+        playerTwoLabelResponse.setTranslateY(325);
+        root.getChildren().add(playerTwoLabelResponse);
 
 
         // places the players images
@@ -298,11 +310,13 @@ public class Main extends Application {
                     playerOneScore++;
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    playerOneLabelResponse.setText("You are: " + "CORRECT!");
                     dismissQuestion();
                     
                 }
                 else{
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
                 playerOne.xCell = rollValue + playerOne.xCell;
@@ -325,10 +339,12 @@ public class Main extends Application {
                     playerOneScore++;
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    playerOneLabelResponse.setText("You are: " + "CORRECT!");
                     dismissQuestion();
                 }
                 else{
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
                 playerOne.xCell = rollValue + playerOne.xCell;
@@ -350,11 +366,13 @@ public class Main extends Application {
                     playerOneScore++;
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    playerOneLabelResponse.setText("You are: " + "CORRECT!");
                     dismissQuestion();
                     
                 }
                 else{
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
+                    playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
                 playerOne.xCell = rollValue + playerOne.xCell;
@@ -379,11 +397,13 @@ public class Main extends Application {
                     playerTwoScore++;
                     playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    playerTwoLabelResponse.setText("Your are: " + "CORRECT!");
                     dismissQuestion();
                     
                 }
                 else{
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    playerTwoLabelResponse.setText("You Are: " + "WRONG!");
                     dismissQuestion();
                 }
                 playerTwo.xCell = rollValue + playerTwo.xCell;
@@ -404,12 +424,14 @@ public class Main extends Application {
                     playerTwoScore++;
                     playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    playerTwoLabelResponse.setText("Your are: " + "CORRECT!");
                     dismissQuestion();
                     playerTwo.xCell = rollValue + playerTwo.xCell;
                     
                 }
                 else{
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    playerTwoLabelResponse.setText("You Are: " + "WRONG!");
                     dismissQuestion();
                 }
                 pTwoImageView.setX(playerTwo.xCell*100+25);
@@ -430,11 +452,13 @@ public class Main extends Application {
                     playerTwoScore++;
                     playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    playerTwoLabelResponse.setText("Your are: " + "CORRECT!");
                     dismissQuestion();
                     
                 }
                 else{
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
+                    playerTwoLabelResponse.setText("You Are: " + "WRONG!");
                     dismissQuestion();
                 }
                 playerTwo.xCell = rollValue + playerTwo.xCell;
