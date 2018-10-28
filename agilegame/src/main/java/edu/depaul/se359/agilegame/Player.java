@@ -19,4 +19,5 @@ public class Player {
     public Point getPlayerLocation(){
         return new Point(xCell, yCell);
     }
+    
 }
