@@ -246,7 +246,7 @@ public class Main extends Application {
         playerTwoLabelResponse.setTranslateX(810);
         playerTwoLabelResponse.setTranslateY(325);
         root.getChildren().add(playerTwoLabelResponse);
-
+//
 
         // places the players images
         placePlayerOne();
