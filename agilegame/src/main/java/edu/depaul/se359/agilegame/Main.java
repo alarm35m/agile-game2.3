@@ -38,6 +38,7 @@ public class Main extends Application {
     ImageView diceImageView;
     
     Player playerOne, playerTwo;
+    int rollValue;
     Button diceRoll;
     Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel, playerOneAnswerLabel, playerTwoAnswerLabel;
     String[] team1questions;
@@ -298,6 +299,15 @@ public class Main extends Application {
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     dismissQuestion();
+                    playerOne.xCell = rollValue + playerOne.xCell;
+                    pOneImageView.setX(playerOne.xCell*100+25);
+                    if(playerOne.xCell > 7) {
+                    	playerOne.xCell = playerOne.xCell - 8;
+                    	playerOne.yCell++;
+                    	pOneImageView.setX(playerOne.xCell*100+25);
+                    	pOneImageView.setY(playerOne.yCell*100+25);
+                    }
+                    
                 }
                 else{
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
@@ -317,6 +327,14 @@ public class Main extends Application {
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     dismissQuestion();
+                    playerOne.xCell = rollValue + playerOne.xCell;
+                    pOneImageView.setX(playerOne.xCell*100+25);
+                    if(playerOne.xCell > 7) {
+                    	playerOne.xCell = playerOne.xCell - 8;
+                    	playerOne.yCell++;
+                    	pOneImageView.setX(playerOne.xCell*100+25);
+                    	pOneImageView.setY(playerOne.yCell*100+25);
+                    }
                 }
                 else{
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
@@ -334,6 +352,14 @@ public class Main extends Application {
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     dismissQuestion();
+                    playerOne.xCell = rollValue + playerOne.xCell;
+                    pOneImageView.setX(playerOne.xCell*100+25);
+                    if(playerOne.xCell > 7) {
+                    	playerOne.xCell = playerOne.xCell - 8;
+                    	playerOne.yCell++;
+                    	pOneImageView.setX(playerOne.xCell*100+25);
+                    	pOneImageView.setY(playerOne.yCell*100+25);
+                    }
                 }
                 else{
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
@@ -354,6 +380,14 @@ public class Main extends Application {
                     playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     dismissQuestion();
+                    playerTwo.xCell = rollValue + playerTwo.xCell;
+                    pTwoImageView.setX(playerTwo.xCell*100+25);
+                    if(playerTwo.xCell > 7) {
+                    	playerTwo.xCell = playerTwo.xCell - 8;
+                    	playerTwo.yCell++;
+                    	pTwoImageView.setX(playerTwo.xCell*100+25);
+                    	pTwoImageView.setY(playerTwo.yCell*100+25);
+                    }
                 }
                 else{
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
@@ -370,6 +404,14 @@ public class Main extends Application {
                     playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     dismissQuestion();
+                    playerTwo.xCell = rollValue + playerTwo.xCell;
+                    pTwoImageView.setX(playerTwo.xCell*100+25);
+                    if(playerTwo.xCell > 7) {
+                    	playerTwo.xCell = playerTwo.xCell - 8;
+                    	playerTwo.yCell++;
+                    	pTwoImageView.setX(playerTwo.xCell*100+25);
+                    	pTwoImageView.setY(playerTwo.yCell*100+25);
+                    }
                 }
                 else{
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
@@ -387,6 +429,14 @@ public class Main extends Application {
                     playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     dismissQuestion();
+                    playerTwo.xCell = rollValue + playerTwo.xCell;
+                    pTwoImageView.setX(playerTwo.xCell*100+25);
+                    if(playerTwo.xCell > 7) {
+                    	playerTwo.xCell = playerTwo.xCell - 8;
+                    	playerTwo.yCell++;
+                    	pTwoImageView.setX(playerTwo.xCell*100+25);
+                    	pTwoImageView.setY(playerTwo.yCell*100+25);
+                    }
                 }
                 else{
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
@@ -460,6 +510,7 @@ public class Main extends Application {
         Random rand = new Random();
         int randInt = rand.nextInt(6) + 1;
 
+        rollValue = randInt;
         diceLabel.setText("Roll: " + randInt);
         loadDiceRollImage(randInt);
         
